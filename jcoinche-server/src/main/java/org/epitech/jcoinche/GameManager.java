@@ -166,13 +166,13 @@ public class GameManager {
             mainColor = tmp.getColor();
             winningCard = tmp;
             players.elementAt(playerTurn).removeCardByName(message);
-            sendMessageToAllExcept(playerTurn, "Le joueur " + playerTurn + " a joué: " + tmp.getName());
+            sendMessageToAllExcept(playerTurn, "Le joueur " + (playerTurn + 1) + " a joué: " + tmp.getName());
             playerTurn = (playerTurn + 1) % 4;
             return ;
         } else {
             if (tmp.getColor() == mainColor && tmp.getValue(tmpColor) > winningCard.getValue(tmpColor)) {
                 players.elementAt(playerTurn).removeCardByName(message);
-                sendMessageToAllExcept(playerTurn, "Le joueur " + playerTurn + " a joué: " + tmp.getName());
+                sendMessageToAllExcept(playerTurn, "Le joueur " + (playerTurn + 1) + " a joué: " + tmp.getName());
                 winningCard = tmp;
                 pli[playerTurn] = tmp;
                 playerTurn = (playerTurn + 1) % 4;
@@ -194,7 +194,7 @@ public class GameManager {
                         mainColor = tmp.getColor();
                         waitingResponse = false;
                         players.elementAt(playerTurn).removeCardByName(message);
-                        sendMessageToAllExcept(playerTurn, "Le joueur " + playerTurn + " a joué: " + tmp.getName());
+                        sendMessageToAllExcept(playerTurn, "Le joueur " + (playerTurn + 1) + " a joué: " + tmp.getName());
                         playerTurn = (playerTurn + 1) % 4;
                     }
                     else if (tmp.getColor() != currentAtout && players.elementAt(playerTurn).hasBetterCardSameColor(-1, currentAtout, tmpColor)) {
@@ -206,7 +206,7 @@ public class GameManager {
                 pli[playerTurn] = tmp;
                 waitingResponse = false;
                 players.elementAt(playerTurn).removeCardByName(message);
-                sendMessageToAllExcept(playerTurn, "Le joueur " + playerTurn + " a joué: " + tmp.getName());
+                sendMessageToAllExcept(playerTurn, "Le joueur " + (playerTurn + 1) + " a joué: " + tmp.getName());
                 playerTurn = (playerTurn + 1) % 4;
             }
         }
