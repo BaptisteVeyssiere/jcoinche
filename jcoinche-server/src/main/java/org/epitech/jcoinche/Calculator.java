@@ -18,36 +18,34 @@ public class Calculator {
         return (points);
     }
 
-    public void allAtout(Vector<Card> cards) {
+    public void allAtout(Vector<Card> cards, int first) {
         int team_a = 0;
         int team_b = 0;
 
         team_a = cards.get(0).getValue(2) + cards.get(2).getValue(2);
         team_b = cards.get(1).getValue(2) + cards.get(3).getValue(2);
-        if (team_a < team_b) {
-            winnerId = (cards.get(1).getValue(2) < cards.get(3).getValue(2)) ? 3 : 1;
-        } else {
-            winnerId = (cards.get(0).getValue(2) < cards.get(2).getValue(2)) ? 2 : 0;
-        }
+        winnerId = 0;
+        winnerId = winnerAll(cards.get(winnerId), cards.get(1), first, winnerId, 1);
+        winnerId = winnerAll(cards.get(winnerId), cards.get(2), first, winnerId, 2);
+        winnerId = winnerAll(cards.get(winnerId), cards.get(3), first, winnerId, 3);
         points = team_a + team_b;
     }
 
-    public void classic(Vector<Card> cards) {
+    public void classic(Vector<Card> cards, int first) {
 
         int team_a = 0;
         int team_b = 0;
 
         team_a = cards.get(0).getValue(3) + cards.get(2).getValue(3);
         team_b = cards.get(1).getValue(3) + cards.get(3).getValue(3);
-        if (team_a < team_b) {
-            winnerId = (cards.get(1).getValue(3) < cards.get(3).getValue(3)) ? 3 : 1;
-        } else {
-            winnerId = (cards.get(0).getValue(3) < cards.get(2).getValue(3)) ? 2 : 0;
-        }
+        winnerId = 0;
+        winnerId = winnerClassic(cards.get(winnerId), cards.get(1), first, winnerId, 1);
+        winnerId = winnerClassic(cards.get(winnerId), cards.get(2), first, winnerId, 2);
+        winnerId = winnerClassic(cards.get(winnerId), cards.get(3), first, winnerId, 3);
         points = team_a + team_b;
     }
 
-    public void withAtout(Vector<Card> cards, int color) {
+    public void withAtout(Vector<Card> cards, int color, int first) {
         int team_a = 0;
         int team_b = 0;
 
@@ -60,11 +58,11 @@ public class Calculator {
         winnerId = winner(cards.get(winnerId), cards.get(3), color, winnerId, 3);
     }
 
-    public void withoutAtout(Vector<Card> cards, int atout) {
+    public void withoutAtout(Vector<Card> cards, int atout, int first) {
         if (atout == 1) {
-            allAtout(cards);
+            allAtout(cards, first);
         } else {
-            classic(cards);
+            classic(cards, first);
         }
     }
 
@@ -80,6 +78,30 @@ public class Calculator {
         }
     }
 
+    public int  winnerClassic(Card a, Card b, int color, int ida, int idb) {
+        if (a.isColor(color) && !b.isColor(color)) {
+            return (ida);
+        } else if (b.isColor(color) && !a.isColor(color)) {
+            return (idb);
+        } else if (a.isColor(color) && b.isColor(color)) {
+            return (a.getValue(3) < b.getValue(3) ? idb : ida);
+        } else {
+            return (a.getValue(3) < b.getValue(3) ? idb : ida);
+        }
+    }
+
+    public int  winnerAll(Card a, Card b, int color, int ida, int idb) {
+        if (a.isColor(color) && !b.isColor(color)) {
+            return (ida);
+        } else if (b.isColor(color) && !a.isColor(color)) {
+            return (idb);
+        } else if (a.isColor(color) && b.isColor(color)) {
+            return (a.getValue(2) < b.getValue(2) ? idb : ida);
+        } else {
+            return (a.getValue(2) < b.getValue(2) ? idb : ida);
+        }
+    }
+
     public int  getValue(Card card, int color) {
         if (card.isColor(color)) {
             return (card.getValue(0));
@@ -88,11 +110,11 @@ public class Calculator {
         }
     }
 
-    public void calculate(Vector<Card> cards, int atout, int color) {
+    public void calculate(Vector<Card> cards, int atout, int color, int first) {
         if (atout == 0) {
-            withAtout(cards, color);
+            withAtout(cards, color, first);
         } else {
-            withoutAtout(cards, atout);
+            withoutAtout(cards, atout, first);
         }
     }
 }

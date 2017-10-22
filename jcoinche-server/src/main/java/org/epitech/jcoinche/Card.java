@@ -32,6 +32,10 @@ public class Card {
         return (color == col);
     }
 
+    public int getColor() {
+        return (color);
+    }
+
     public String getName() {
         return (name);
     }

@@ -29,8 +29,14 @@ public class Server {
                 }
             }
             try {
-                for (Salon salon : salons) {
-                    salon.playGame();
+                for (Iterator<Salon> salon = salons.iterator(); salon.hasNext(); ) {
+                    try {
+                        tmp = salon.next();
+                        tmp.playGame();
+                    } catch (RuntimeException e) {
+                        tmp.destroySalon();
+                        salon.remove();
+                    }
                 }
             } catch (Exception e) {
                 System.out.println(e.getMessage());

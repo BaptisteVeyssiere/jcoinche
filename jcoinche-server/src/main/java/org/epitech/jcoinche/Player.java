@@ -63,8 +63,37 @@ public class Player {
 
     public void sendCardList() {
         sendCommand("Voici vos cartes:");
-        for (int i = 0 ; i < 8 ; ++i) {
+        for (int i = 0 ; i < cards.size() ; ++i) {
             sendCommand(cards.elementAt(i).getName());
         }
+    }
+
+    public Card getCardByName(String name) {
+        for (Card card : cards) {
+            if (card.getName().equals(name))
+                return (card);
+        }
+        throw new RuntimeException();
+    }
+
+    public void removeCardByName(String name) {
+        for (Card card : cards) {
+            if (card.getName().equals(name)) {
+                cards.remove(card);
+                break;
+            }
+        }
+    }
+
+    public boolean hasBetterCardSameColor(int value, int color, int valueColor) {
+        for (Card card : cards) {
+            if (card.getColor() == color && card.getValue(valueColor) > value)
+                return (true);
+        }
+        return (false);
+    }
+
+    public int getCardNbr() {
+        return (cards.size());
     }
 }
