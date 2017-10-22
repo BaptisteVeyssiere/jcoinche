@@ -40,19 +40,22 @@ public class App
             ClientHandler   handler = ch.pipeline().get(ClientHandler.class);
             BufferedReader  in = new BufferedReader(new InputStreamReader(System.in));
 
-            while (true) {
-                line = in.readLine();
-                if (line.equals("quit"))
+            while (handler.getStatus()) {
+                if (in.ready()) {
+                    line = in.readLine();
+                    if (line.equals("quit") || !handler.getStatus())
+                        break;
+                    handler.sendCommand(line);
+                }
+                if (!handler.getStatus())
                     break;
-                handler.sendCommand(line);
-                while (handler.getCommandSize() < 1)
-                    Thread.sleep(100);
-                System.out.println(handler.getCommand());
+                if (handler.getCommandSize() > 0)
+                    System.out.println(handler.getCommand());
+                Thread.sleep(100);
             }
-
             ch.close();
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            System.out.println("Error encountered: " + e.getMessage());
         } finally {
             group.shutdownGracefully();
             System.out.println("Client closed gracefully");

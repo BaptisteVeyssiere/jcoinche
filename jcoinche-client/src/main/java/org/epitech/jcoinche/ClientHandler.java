@@ -12,6 +12,7 @@ public class ClientHandler extends SimpleChannelInboundHandler<CommandProtos.Com
 
     private volatile Channel                            channel;
     private final BlockingQueue<CommandProtos.Command>  answer = new LinkedBlockingQueue<CommandProtos.Command>();
+    private boolean                                     connected = false;
 
     public ClientHandler() {
         super(false);
@@ -44,9 +45,19 @@ public class ClientHandler extends SimpleChannelInboundHandler<CommandProtos.Com
         channel.writeAndFlush(builder.build());
     }
 
+    public boolean  getStatus() {
+        return (connected);
+    }
+
+    @Override
+    public void channelInactive(ChannelHandlerContext ctx) {
+        connected = false;
+    }
+
     @Override
     public void channelRegistered(ChannelHandlerContext ctx) {
         channel = ctx.channel();
+        connected = true;
     }
 
     @Override

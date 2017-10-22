@@ -43,6 +43,9 @@ public class ServerHandler extends SimpleChannelInboundHandler<CommandProtos.Com
     public void handlerAdded(ChannelHandlerContext ctx) throws Exception {
         Channel incoming = ctx.channel();
 
+        while (!availability) {
+            Thread.sleep(100);
+        }
         availability = false;
         clientqueue.add(new Player(incoming));
         System.out.println("[" + incoming.remoteAddress() + "] has join the server");
@@ -53,6 +56,9 @@ public class ServerHandler extends SimpleChannelInboundHandler<CommandProtos.Com
     public void handlerRemoved(ChannelHandlerContext ctx) throws Exception {
         Channel incoming = ctx.channel();
 
+        while (!availability) {
+            Thread.sleep(100);
+        }
         availability = false;
         for (Player player : clientqueue)
             if (player.getChannel() == incoming) {
@@ -62,6 +68,7 @@ public class ServerHandler extends SimpleChannelInboundHandler<CommandProtos.Com
             }
         for (Player player : ingamequeue)
             if (player.getChannel() == incoming) {
+            player.setConnection(false);
                 ingamequeue.remove(player);
                 System.out.println("[" + incoming.remoteAddress() + "] has left the server");
                 break;

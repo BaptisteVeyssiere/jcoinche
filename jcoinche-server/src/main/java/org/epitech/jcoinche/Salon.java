@@ -38,4 +38,25 @@ public class Salon {
             throw new RuntimeException("Bad player ID requested");
         players.get(id).sendCommand(command);
     }
+
+    public int  getClientNbr() {
+
+        int     i = 0;
+
+        for (Player player : players) {
+            if (player.getConnection())
+                ++i;
+        }
+        return (i);
+    }
+
+    public void destroySalon() {
+
+        for (Player player : players) {
+            if (player.getConnection()) {
+                player.getChannel().close();
+            }
+        }
+        System.out.println("A salon has been destroyed");
+    }
 }

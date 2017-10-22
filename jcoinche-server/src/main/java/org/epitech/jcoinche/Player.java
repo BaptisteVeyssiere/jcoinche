@@ -10,6 +10,7 @@ public class Player {
 
     private Channel                 channel;
     private BlockingQueue<String>   commands = new LinkedBlockingQueue<String>();
+    private boolean                 connected = true;
 
     Player(Channel ch) {
         channel = ch;
@@ -40,5 +41,13 @@ public class Player {
 
         builder.setRequest(command);
         channel.writeAndFlush(builder.build());
+    }
+
+    public void     setConnection(boolean status) {
+        connected = status;
+    }
+
+    public boolean  getConnection() {
+        return (connected);
     }
 }

@@ -35,6 +35,8 @@ public class App
             server = new Server(handler);
             server.loop();
             ch.closeFuture().sync();
+        } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
         } finally {
             bossGroup.shutdownGracefully();
             workerGroup.shutdownGracefully();
