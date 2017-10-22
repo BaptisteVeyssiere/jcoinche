@@ -17,7 +17,7 @@ public class Salon {
         gameMng = new GameManager(players);
     }
 
-    public void playGame() {
+    public void playGame() throws InterruptedException {
         gameMng.continueGame();
     }
 

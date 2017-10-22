@@ -62,9 +62,9 @@ public class Player {
     }
 
     public void sendCardList() {
-        sendCommand("Voici vos cartes:\n");
+        sendCommand("Voici vos cartes:");
         for (int i = 0 ; i < 8 ; ++i) {
-            sendCommand(cards.elementAt(i).getName() + "\n");
+            sendCommand(cards.elementAt(i).getName());
         }
     }
 }
