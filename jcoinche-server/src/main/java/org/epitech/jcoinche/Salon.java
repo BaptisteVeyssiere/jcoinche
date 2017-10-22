@@ -6,6 +6,7 @@ import java.util.Vector;
 
 public class Salon {
 
+    private GameManager     gameMng;
     private Vector<Player>  players = new Vector<Player>();
 
     Salon(Player player1, Player player2, Player player3, Player player4) {
@@ -13,6 +14,11 @@ public class Salon {
         players.add(player2);
         players.add(player3);
         players.add(player4);
+        gameMng = new GameManager(players);
+    }
+
+    public void playGame() {
+        gameMng.continueGame();
     }
 
     public int  getCommandNbr(int id) {
