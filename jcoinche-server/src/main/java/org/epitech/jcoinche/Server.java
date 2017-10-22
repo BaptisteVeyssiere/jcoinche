@@ -19,13 +19,9 @@ public class Server {
                 salons.add(network.makeSalon());
             }
             for (Salon salon : salons) {
-                for (int i = 0; i < 4; ++i) {
-                    if (salon.getCommandNbr(i) > 0) {
-                        System.out.println("[" + salon.getPlayer(i).remoteAddress() + "]: " + salon.getCommand(i));
-                        salon.sendCommand(i, "OK");
-                    }
-                }
+                salon.playGame();
             }
+            Thread.sleep(100);
         }
     }
 }

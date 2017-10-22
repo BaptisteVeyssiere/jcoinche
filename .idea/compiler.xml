@@ -20,8 +20,8 @@
     <bytecodeTargetLevel>
       <module name="Java_jcoinche_2017" target="1.5" />
       <module name="jcoinche" target="1.5" />
-      <module name="jcoinche-client" target="1.5" />
-      <module name="jcoinche-server" target="1.5" />
+      <module name="jcoinche-client" target="1.6" />
+      <module name="jcoinche-server" target="1.6" />
       <module name="jcoincheclient" target="1.5" />
       <module name="jcoincheserver" target="1.5" />
     </bytecodeTargetLevel>

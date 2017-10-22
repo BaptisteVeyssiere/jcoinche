@@ -3,11 +3,13 @@ package org.epitech.jcoinche;
 import io.netty.channel.Channel;
 import org.epitech.command.CommandProtos;
 
+import java.util.Vector;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 
 public class Player {
 
+    private Vector<Card>            cards = new Vector<Card>();
     private Channel                 channel;
     private BlockingQueue<String>   commands = new LinkedBlockingQueue<String>();
 
@@ -40,5 +42,20 @@ public class Player {
 
         builder.setRequest(command);
         channel.writeAndFlush(builder.build());
+    }
+
+    public void clearCards() {
+        cards.clear();
+    }
+
+    public void addCard(Card card) {
+        cards.add(card);
+    }
+
+    public void sendCardList() {
+        sendCommand("Voici vos cartes:\n");
+        for (int i = 0 ; i < 8 ; ++i) {
+            sendCommand(cards.elementAt(i).getName() + "\n");
+        }
     }
 }
